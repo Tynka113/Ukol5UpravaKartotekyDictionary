@@ -1,4 +1,4 @@
-﻿using Ukol4UpravaKartoteky;
+﻿using Ukol5UpravaKartoteky;
 
 /*
  * Zadání:
@@ -6,7 +6,7 @@ Kartotéku, která byla úkolem v minulých lekcích uprav na použití s dictio
 Nezapomeň vhodně zvolit klíčovou hodnotu pro dictionary.
 */
 
-var mojeKnihy = new List<Kniha>();
+var mojeKnihy = new Dictionary <Kniha,Autor>();
 bool jeKonec = false;
 
 while (!jeKonec)
@@ -26,38 +26,47 @@ while (!jeKonec)
             jeKonec = true;
             break;
         case 1:
-            Kniha zadaneKnihy = new Kniha();
+            Kniha zadanaKniha = new Kniha();
+            Autor zadanyAutor = new Autor();
+
             Console.Write("Zadej nazev knihy: ");
-            zadaneKnihy.Nazev = Console.ReadLine();
-            Console.Write("Zadej příjmení autora: ");
-            zadaneKnihy.AutorPrijmeni = Console.ReadLine();
-            Console.Write("Zadej jméno autora: ");
-            zadaneKnihy.AutorJmeno = Console.ReadLine();
+            zadanaKniha.Nazev = Console.ReadLine();
             Console.Write("Zadej rok vydání: ");
-            zadaneKnihy.RokVydani = Console.ReadLine();
-            mojeKnihy.Add(zadaneKnihy);
+            zadanaKniha.RokVydani = Console.ReadLine();
+
+            Console.Write("Zadej příjmení autora: ");
+            zadanyAutor.Prijmeni = Console.ReadLine();
+            Console.Write("Zadej jméno autora: ");
+            zadanyAutor.Jmeno = Console.ReadLine();
+
+            mojeKnihy.Add(zadanaKniha,zadanyAutor);
             break;
         case 2:
-            Console.Write("Zadej index mazané položky: ");
-            int index = Convert.ToInt32(Console.ReadLine());
-            if (index > -1 && index < mojeKnihy.Count)
+            Kniha smazatKnihu = new Kniha();
+            Console.Write("Zadej nazev knihy: ");
+            smazatKnihu.Nazev = Console.ReadLine();
+            Console.Write("Zadej rok vydání: ");
+            smazatKnihu.RokVydani = Console.ReadLine();
+
+            if (mojeKnihy.ContainsKey(smazatKnihu))
             {
-                mojeKnihy.RemoveAt(index);
+                mojeKnihy.Remove(smazatKnihu);
             }
             else
             {
-                Console.WriteLine("Mazání přerušeno: zadaný index neexistuje");
+                Console.WriteLine("Mazání přerušeno: zadaný klíč neexistuje.");
             }
 
             break;
         case 3:
-            //Console.WriteLine($"Index \t Název knihy \t Přijmení autora \t Jméno autora \t Rok vydání knihy");
-            int i = 0;
-            foreach (Kniha k in mojeKnihy)
+            int i = 1;
+            foreach (KeyValuePair<Kniha, Autor> item in mojeKnihy)
             {
-                Console.WriteLine($"{i}\t{k.Nazev}\t{k.AutorPrijmeni}\t{k.AutorJmeno}\t{k.RokVydani}");
+                Console.WriteLine($"{i}\t {item.Key.Nazev} \t {item.Key.RokVydani} \t {item.Value.Jmeno} \t {item.Value.Prijmeni}");
                 i++;
             }
+                
+            
             break;
 
     }

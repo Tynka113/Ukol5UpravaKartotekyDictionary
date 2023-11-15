@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ukol4UpravaKartoteky
+namespace Ukol5UpravaKartoteky
 {
     public class Kniha
     {
-        public string AutorPrijmeni;
-        public string AutorJmeno;
         public string Nazev;
         public string RokVydani;
     }
-
+    public class Autor
+    {
+        public string Prijmeni;
+        public string Jmeno;
+    }
 }
